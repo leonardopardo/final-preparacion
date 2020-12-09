@@ -225,6 +225,32 @@ public class ColaService {
     }
 
     /**
+     * Verifica si dos colas son identicas, mismos elementos en mismo orden.
+     * @param cola1
+     * @param cola2
+     * @return
+     */
+    public boolean esIdentica(ICola cola1, ICola cola2){
+
+        ICola colaAux1 = new Cola();
+        colaAux1.inicializarCola();
+
+        ICola colaAux2 = new Cola();
+        colaAux2.inicializarCola();
+
+        copiarCola(cola1, colaAux1);
+        copiarCola(cola2, colaAux2);
+
+        while( (!colaAux1.colaVacia() && !colaAux2.colaVacia())
+                && (colaAux1.primero() == colaAux2.primero()) ){
+            colaAux1.desacolar();
+            colaAux2.desacolar();
+        }
+
+        return colaAux1.colaVacia() && colaAux2.colaVacia();
+    }
+
+    /**
      * Imprime los valores de una cola en consola.
      * @param cola
      */

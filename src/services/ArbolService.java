@@ -2,7 +2,6 @@ package services;
 
 import contracts.*;
 import libraries.Cola;
-import libraries.ColaPrioritaria;
 import libraries.Conjunto;
 import libraries.Pila;
 
@@ -65,6 +64,18 @@ public class ArbolService {
 
     public boolean esHoja(IAbb a){
         return a.arbolVacio();
+    }
+
+    public boolean elElementoEsHoja(IAbb a, int x){
+        if (a.raiz() == x && a.hijoIzq().arbolVacio() && a.hijoDer().arbolVacio()) {
+            return true;
+        } else if (a.raiz() == x && (!a.hijoDer().arbolVacio() || !a.hijoDer().arbolVacio())) {
+            return false;
+        } else if (x > a.raiz()) {
+            return elElementoEsHoja(a.hijoDer(), x);
+        } else {
+            return elElementoEsHoja(a.hijoIzq(), x);
+        }
     }
 
     public boolean esSubArbol(IAbb a){
@@ -245,6 +256,25 @@ public class ArbolService {
         return hojas(a.hijoIzq()) + hojas(a.hijoDer());
     }
 
+    public boolean esIdentico(IAbb a1, IAbb a2){
+        ICola c1 = new Cola();
+        c1.inicializarCola();
+
+        ICola c2 = new Cola();
+        c2.inicializarCola();
+
+        aCola(a1, c1);
+        aCola(a2, c2);
+
+        ColaService colaService = new ColaService();
+
+        return colaService.esIdentica(c1, c2);
+    }
+
+    public int elementosEnNivel(IAbb a, int n){
+        return 0;
+    }
+
     private int mayor(int x, int y){
         return x > y
                 ? x
@@ -255,5 +285,23 @@ public class ArbolService {
         return x < y
                 ? x
                 : y;
+    }
+
+    /**
+     * @Estrategia Recorrer el árbol en preorden y agregar la raíz al conjunto con la condicion de que la raíz sea mayor
+     * que "q".
+     * @param a
+     * @param c
+     * @param q
+     */
+    public void puntoCuatro(IAbb a, IConjunto c, int q){
+
+        if(!a.arbolVacio()){
+            if(a.raiz() > q)
+                c.agregar(a.raiz());
+
+            puntoCuatro(a.hijoIzq(), c, q);
+            puntoCuatro(a.hijoDer(), c, q);
+        }
     }
 }
