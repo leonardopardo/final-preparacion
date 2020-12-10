@@ -302,4 +302,29 @@ public class PilaService {
 
         return acum;
     }
+
+    /**
+     * Calcula el promedio de los elementos de una pila, no modifica la pila.
+     * @param pila
+     * @return
+     */
+    public int promedio(IPila pila){
+        IPila pilaAux = new Pila();
+        pilaAux.inicializarPila();
+
+        this.copiarPila(pila, pilaAux);
+
+        int acum = 0;
+        int cant = 0;
+
+        while(!pilaAux.pilaVacia()){
+            acum += pilaAux.tope();
+            pilaAux.desapilar();
+            cant++;
+        }
+
+        return cant == 0
+                ? 0
+                : acum / cant;
+    }
 }

@@ -63,6 +63,59 @@ public class GrafoService {
         }
     }
 
+    public void trasponer(IGrafo g1, IGrafo g2){
+
+        IConjunto cAux = new Conjunto();
+        cAux.inicializarConjunto();
+
+        IConjunto v1 = g1.vertices();
+
+        copiarVertices(g1, g2);
+
+        while(!v1.conjuntoVacio()){
+            int vAux1 = v1.obtener();
+            v1.sacar(vAux1);
+
+            while(!v1.conjuntoVacio()){
+                int vAux2 = v1.obtener();
+                v1.sacar(vAux2);
+
+                if(g1.existeArista(vAux1, vAux2)){
+                    g2.agregarArista(vAux2, vAux1, g1.peso(vAux1, vAux2));
+                }
+
+                if(g1.existeArista(vAux2, vAux1)){
+                    g2.agregarArista(vAux1, vAux2, g1.peso(vAux2, vAux1));
+                }
+
+                cAux.agregar(vAux2);
+            }
+
+            while(!cAux.conjuntoVacio()){
+                int x = cAux.obtener();
+                cAux.sacar(x);
+                v1.agregar(x);
+            }
+        }
+    }
+
+    /**
+     * Copia los vertices de un grafo a otro grafo.
+     * @param g1
+     * @param g2
+     */
+    public void copiarVertices(IGrafo g1, IGrafo g2){
+
+        IConjunto c = g1.vertices();
+
+        while(c.conjuntoVacio()){
+            int v = c.obtener();
+            c.sacar(v);
+
+            g2.agregarVertice(v);
+        }
+    }
+
     public void printGrafo(IGrafo g){
 
         IConjunto cAux1 = g.vertices();
