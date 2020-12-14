@@ -1,9 +1,6 @@
 import contracts.*;
 import libraries.*;
-import services.ArbolService;
-import services.ColaService;
-import services.ConjuntoService;
-import services.GrafoService;
+import services.*;
 
 import java.io.IOException;
 
@@ -12,11 +9,20 @@ public class Main {
         IAbb arbol = new Abb();
         arbol.inicializar();
         //int[] valores = { 32, 78, 41, 70, 16, 55, 43, 38, 25, 82, 45, 34 };
-        int[] valores = {1,2,4,7,11,3,5,8,9,6,10,12};
+        //int[] valores = {1,2,4,7,11,3,5,8,9,6,10,12};
+        int[] valores = {7,5,16,4,6,11,30,10,15,14,13};
 
         ArbolService arbolService = new ArbolService();
         arbolService.agregarValores(arbol, valores);
-        arbolService.printPreorden(arbol);
+        //arbolService.printPreorden(arbol);
+
+        ColaPrioritatriaService cpService = new ColaPrioritatriaService();
+        IColaPrioritaria cp = new ColaPrioritaria();
+        cp.inicializarCola();
+
+        arbolService.factorEquilibrio(arbol, cp);
+
+        cpService.printConsole(cp);
 
     }
 

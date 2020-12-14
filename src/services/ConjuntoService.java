@@ -1,6 +1,8 @@
 package services;
 
+import contracts.ICola;
 import contracts.IConjunto;
+import libraries.Cola;
 import libraries.Conjunto;
 
 public class ConjuntoService {
@@ -54,6 +56,45 @@ public class ConjuntoService {
         while(!c.conjuntoVacio()){
             int val = c.obtener();
             c.sacar(val);
+        }
+    }
+
+    public void ordenarConjuntoAsc(IConjunto c){
+        IConjunto cAux = new Conjunto();
+        cAux.inicializarConjunto();
+
+        IConjunto cOrdenado = new Conjunto();
+        cOrdenado.inicializarConjunto();
+
+        while(!c.conjuntoVacio()){
+            int min = c.obtener();
+            c.sacar(min);
+
+            while(!c.conjuntoVacio()){
+                int val = c.obtener();
+                c.sacar(val);
+
+                if(val < min){
+                    cAux.agregar(min);
+                    min = val;
+                } else {
+                    cAux.agregar(val);
+                }
+            }
+
+            while(!cAux.conjuntoVacio()){
+                int v = cAux.obtener();
+                cAux.sacar(v);
+                c.agregar(v);
+            }
+
+            cOrdenado.agregar(min);
+        }
+
+        while (!cOrdenado.conjuntoVacio()){
+            int x = cOrdenado.obtener();
+            cOrdenado.sacar(x);
+            c.agregar(x);
         }
     }
 
@@ -188,6 +229,12 @@ public class ConjuntoService {
         return iConjunto;
     }
 
+    /**
+     *
+     * @param c1
+     * @param c2
+     * @return
+     */
     public IConjunto diferencia(IConjunto c1, IConjunto c2){
 
         IConjunto dConjunto = new Conjunto();

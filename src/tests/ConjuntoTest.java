@@ -517,4 +517,21 @@ public class ConjuntoTest {
 
         assertTrue( service.estaIncluido(c1, c2));
     }
+
+    @Test
+    public void ordenar_los_elementos_de_un_conjunto(){
+        IConjunto c = new Conjunto();
+        c.inicializarConjunto();
+        c.agregar(5);
+        c.agregar(3);
+        c.agregar(4);
+
+
+        ConjuntoService service = new ConjuntoService();
+        service.ordenarConjuntoAsc(c);
+
+        int p = c.obtener();
+
+        assertEquals(p, 3);
+    }
 }

@@ -29,23 +29,13 @@ public class ArbolService {
     }
 
     public int altura(IAbb a){
-        int h = 0;
-
-        if(esSubArbol(a)){
-
-            if(a.hijoDer() != null)
-                h = mayor(h, altura(a.hijoDer()));
-
-            if(a.hijoIzq() != null)
-                h = mayor(h, altura(a.hijoIzq()));
-
-            h++;
-        }
-
-        return h;
+        return a.arbolVacio()
+                ? 0
+                : 1 + Math.max(altura(a.hijoDer()), altura(a.hijoIzq()));
     }
 
     public int nivel(IAbb a, int x){
+
         int n = -1;
 
         if(!a.arbolVacio() && a.pertenece(x)){

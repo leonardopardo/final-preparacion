@@ -48,7 +48,7 @@ public class AbbTest {
         ArbolService arbolService = new ArbolService();
         arbolService.agregarValores(arbol, valores);
 
-        assertEquals(arbolService.altura(arbol), 7);
+        assertEquals( 7, arbolService.altura(arbol));
     }
 
     @Test
